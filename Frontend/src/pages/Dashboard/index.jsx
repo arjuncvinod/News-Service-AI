@@ -18,12 +18,11 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const date = getDate()
-  // Preserved fetchNews with POST request as is
   const fetchNews = async () => {
     const toastId = toast.loading("Fetching news...");
   
     try {
-      await axios.post(`${import.meta.env.VITE_API}/news/save`); // No change here
+      await axios.post(`${import.meta.env.VITE_API}/news/save`); 
       toast.success("News fetched successfully");
       toast.dismiss(toastId);
     } catch (error) {
@@ -31,7 +30,7 @@ function AdminDashboard() {
     }
   };
 
-  // Logout Handler
+
   const handleLogout = async () => {
     try {
       await auth.signOut();
@@ -41,7 +40,6 @@ function AdminDashboard() {
     }
   };
 
-  // Fetch news when component mounts or when the date changes
   useEffect(() => {
     const getNews = async () => {
       try {
@@ -53,7 +51,7 @@ function AdminDashboard() {
           }
         });
 
-        console.log('API Response:', response.data); // Log API response
+        console.log('API Response:', response.data); 
 
         if (response.data.data && response.data.data.length > 0) {
           setNews(response.data.data);
@@ -70,7 +68,7 @@ function AdminDashboard() {
     };
 
     getNews();
-  }, [date]); // Add dependency array
+  }, [date]); 
 
   if (loading) return <div><Loader /></div>;
 

@@ -26,11 +26,10 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user); // Convert user to a boolean
-      setLoading(false); // Assuming loading is true while checking authentication
+      setIsAuthenticated(!!user); 
+      setLoading(false);
     });
 
-    // Set loading to true before checking authentication
     setLoading(true);
 
     return () => {

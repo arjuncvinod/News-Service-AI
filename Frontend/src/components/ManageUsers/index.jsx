@@ -27,20 +27,20 @@ function ManageUsers() {
 
   const handleDelete = async (userId) => {
     try {
-      // Delete user from Firestore
+      
       await deleteDoc(doc(db, 'users', userId));
 
-      // Delete user from Firebase Authentication
-      const auth = getAuth(); // Ensure you use the appropriate auth instance
-      const user = auth.currentUser; // This assumes the user to be deleted is the currently logged-in user
+   
+      const auth = getAuth(); 
+      const user = auth.currentUser; 
       if (user && user.uid === userId) {
-        await deleteUser(user); // Delete the current user's auth account
+        await deleteUser(user); 
       } else {
-        // Handle deletion for other users if necessary
+    
         console.error('User is not currently logged in or ID mismatch');
       }
 
-      // Update the UI
+   
       setUsers(users.filter(user => user.id !== userId));
     } catch (error) {
       console.error('Error deleting user:', error);

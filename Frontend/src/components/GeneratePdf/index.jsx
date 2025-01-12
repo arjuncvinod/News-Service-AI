@@ -5,7 +5,7 @@ import html2canvas from "html2canvas";
 import "./index.css";
 import "./pdfstyle.css";
 
-// Editable Newspaper UI Component
+
 const NewspaperPDF = ({ news }) => {
   const [newsData, setNewsData] = useState([]);
   
@@ -19,37 +19,37 @@ const NewspaperPDF = ({ news }) => {
     const uniqueCategories = new Set();
     const categorizedNews = [];
     
-    // Shuffle the news array
+ 
     const shuffledNews = [...news].sort(() => 0.5 - Math.random());
 
-    // Loop through shuffled news to get articles from unique categories
+
     for (const article of shuffledNews) {
       if (!uniqueCategories.has(article.category)) {
         uniqueCategories.add(article.category);
         categorizedNews.push(article);
       }
-      // Stop if we have 5 articles
+  
       if (categorizedNews.length === 5) break;
     }
 
-    // Set the selected news articles to state
+  
     setNewsData(categorizedNews);
   }, [news]);
 
-  // Function to generate the PDF
+ 
   const generatePDF = () => {
-    const input = document.getElementById("newspaperPreview"); // Capture the HTML content
+    const input = document.getElementById("newspaperPreview");
 
     html2canvas(input, { scale: 2 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
 
-      // Add the canvas image to the PDF
-      const imgWidth = 210; // A4 width in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain image aspect ratio
+    
+      const imgWidth = 210; 
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; 
 
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("newspaper.pdf"); // Save the PDF
+      pdf.save("newspaper.pdf"); 
     });
   };
 
@@ -57,7 +57,7 @@ const NewspaperPDF = ({ news }) => {
     <div>
       <h1 className="h1">Newspaper Editor</h1>
 
-      {/* Live Preview Section */}
+ 
       <div id="newspaperPreview" className="newspaper-preview">
         <div className="newspaperContainer">
           <nav>

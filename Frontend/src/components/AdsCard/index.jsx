@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../services/firebase"; // Adjust the path based on your project structure
+import { db } from "../../services/firebase";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export default function AdsCard() {
   const [ads, setAds] = useState([]);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false); // New state for closing animation
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     const fetchApprovedAds = async () => {
@@ -23,18 +23,15 @@ export default function AdsCard() {
           ...doc.data(),
         }));
 
-        // Filter ads by expiry date
         const validAds = approvedAds.filter(ad => {
-          const expiryDate = new Date(ad.expiryDate); // Convert string to Date
-          return expiryDate > new Date(); // Check if the ad is still valid
+          const expiryDate = new Date(ad.expiryDate); 
+          return expiryDate > new Date(); 
         });
-
-        // Choose a random ad from valid ads if available
         if (validAds.length > 0) {
           const randomAd = validAds[Math.floor(Math.random() * validAds.length)];
-          setAds([randomAd]); // Set ads to only the randomly selected ad
+          setAds([randomAd]);
         } else {
-          setAds([]); // Clear ads if none are valid
+          setAds([]); 
         }
       } catch (error) {
         console.error("Error fetching ads:", error);
@@ -50,12 +47,12 @@ export default function AdsCard() {
   };
 
   const closeModal = () => {
-    setIsClosing(true); // Trigger closing animation
+    setIsClosing(true);
     setTimeout(() => {
       setIsModalOpen(false);
       setSelectedAd(null);
-      setIsClosing(false); // Reset closing state
-    }, 200); // Match this duration to the closing animation duration
+      setIsClosing(false); 
+    }, 200); 
   };
 
   const handleBackdropClick = (e) => {

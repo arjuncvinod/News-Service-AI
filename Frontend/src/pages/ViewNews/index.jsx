@@ -40,15 +40,15 @@ function NewsViewPage() {
           {
             params: {
               title: newsTitle,
-              date: date || getDate(), // Use the passed date or fallback to the current date
+              date: date || getDate(),
             },
           }
         );
-        setNews(response.data.data); // Adjust based on your API response structure
+        setNews(response.data.data);
         setNewsContent(response.data.data.content);
         setNewsHeading(response.data.data.title);
         if (response.data.data) {
-          setCategory(response.data.data.category); // Set the category from the fetched news
+          setCategory(response.data.data.category); 
         }
       } catch (err) {
         console.error("Error fetching news:", err);
@@ -62,7 +62,7 @@ function NewsViewPage() {
         const response = await axios.get(`${import.meta.env.VITE_API}/news`, {
           params: {
             date: date || getDate(),
-            category: category || "all", // Fetch news based on the category
+            category: category || "all",
           },
         });
         setSidebarNews(response.data.data.slice(0, 10) || []);
@@ -79,7 +79,7 @@ function NewsViewPage() {
   }, [newsTitle, date, category]);
 
   const handleBackClick = () => {
-    navigate("/"); // Navigate to the home page
+    navigate("/"); 
   };
   if (loading) {
     return <Loader />;
@@ -113,7 +113,6 @@ function NewsViewPage() {
     }
   };
 
-  // Stop speech synthesis on page unload
   window.onbeforeunload = () => {
     window.speechSynthesis.cancel();
   };

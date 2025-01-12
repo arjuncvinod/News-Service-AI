@@ -13,7 +13,7 @@ export default function CategorySection({cat}) {
   //   const today = new Date();
   //   console.log(today);
     
-  //   return today.toISOString().split('T')[0]; // returns date in yyyy-mm-dd format
+  //   return today.toISOString().split('T')[0]; 
   // };
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function CategorySection({cat}) {
             category: cat || "all",
           },
         });
-        setNewsData2(response.data.data || []); // Ensure newsData2 is an array
+        setNewsData2(response.data.data || []); 
       } catch (err) {
         console.log(err);
       }

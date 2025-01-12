@@ -13,15 +13,14 @@ const SubmitNews = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Helper function to get today's date in YYYY-MM-DD format
   const getTodayDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0]; // YYYY-MM-DD format
+    return today.toISOString().split('T')[0]; 
   };
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      setImage(e.target.files[0]); // Store the selected image file in state
+      setImage(e.target.files[0]); 
     }
   };
 
@@ -35,36 +34,33 @@ const SubmitNews = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); 
     if (!validateForm()) return;
 
     setUploading(true);
-    const todayDate = getTodayDate(); // Set today's date as object ID
+    const todayDate = getTodayDate(); 
 
     try {
       let imageUrl = null;
 
-      // Upload image if provided
       if (image) {
         const imageRef = ref(storage, `news_images/${todayDate}_${image.name}`);
         await uploadBytes(imageRef, image);
-        imageUrl = await getDownloadURL(imageRef); // Get the download URL after upload
+        imageUrl = await getDownloadURL(imageRef);
       }
 
-      // Prepare the news object to submit
       const newsData = {
         title: title.trim(),
         content: content.trim(),
-        urlToImage: imageUrl || null, // Store the image URL (if uploaded)
+        urlToImage: imageUrl || null, 
         description: description.trim(),
         category: category.trim(),
-        publishedAt: todayDate, // Use today's date as publishedAt
+        publishedAt: todayDate, 
       };
 
-      // Update the document for today's date (if exists), or create a new one
-      const docRef = doc(db, 'news', todayDate); // Use today's date as the document ID
+      const docRef = doc(db, 'news', todayDate); 
       await updateDoc(docRef, {
-        articles: arrayUnion(newsData) // Push the new article into the "articles" array
+        articles: arrayUnion(newsData)
       });
 
       alert('News submitted successfully!');
@@ -73,7 +69,6 @@ const SubmitNews = () => {
       setError('Failed to submit news. Please try again later.');
     } finally {
       setUploading(false);
-      // Reset form fields
       setTitle('');
       setContent('');
       setImage(null);

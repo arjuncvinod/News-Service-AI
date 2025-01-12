@@ -15,11 +15,9 @@ const LoginPage = () => {
 
     toast.promise(
       (async () => {
-        // Sign in with Firebase Authentication
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Check if the user exists in Firestore
         const userDocRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userDocRef);
 
@@ -27,7 +25,7 @@ const LoginPage = () => {
           const userData = userDoc.data();
           const role = userData.role; 
 
-          // Redirect based on the role
+      
           if (role === 'admin') {
             navigate("/dashboard");
           } else {

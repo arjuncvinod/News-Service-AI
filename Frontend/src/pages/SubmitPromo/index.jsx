@@ -18,7 +18,6 @@ const AddPromoContent = () => {
   const [submittedBy] = useState(auth.currentUser ? auth.currentUser.email : '');
   const [status, setStatus] = useState('Submit');
 
-  // Redirect to login if user is not authenticated
   if (!auth.currentUser) {
     return <Navigate to="/login" />;
   }
@@ -33,7 +32,7 @@ const AddPromoContent = () => {
     const file = e.target.files[0];
     setImage(file);
     if (file) {
-      setImagePreview(URL.createObjectURL(file)); // Create image preview
+      setImagePreview(URL.createObjectURL(file)); 
     } else {
       setImagePreview('');
     }
